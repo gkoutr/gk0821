@@ -1,12 +1,12 @@
-package models;
+package models.tools;
 
 public class Tool {
-    private String brand;
-    private String toolCode;
-    private float dailyCharge;
-    private boolean weekdayCharge;
-    private boolean weekendCharge;
-    private boolean holidayCharge;
+    private final String brand;
+    private final String toolCode;
+    private final float dailyCharge;
+    private final boolean weekdayCharge;
+    private final boolean weekendCharge;
+    private final boolean holidayCharge;
 
     public Tool(String brand, String toolCode, float dailyCharge, boolean weekdayCharge, boolean weekendCharge, boolean holidayCharge) {
         this.brand = brand;

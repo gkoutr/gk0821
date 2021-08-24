@@ -1,9 +1,9 @@
 package factory;
 
-import models.Chainsaw;
-import models.Jackhammer;
-import models.Ladder;
-import models.Tool;
+import models.tools.Chainsaw;
+import models.tools.Jackhammer;
+import models.tools.Ladder;
+import models.tools.Tool;
 
 public class ToolFactory {
 

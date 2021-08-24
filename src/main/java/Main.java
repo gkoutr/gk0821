@@ -1,4 +1,3 @@
-import models.Checkout;
 import service.ToolService;
 
 import java.util.Scanner;

@@ -1,10 +1,10 @@
 package models;
 
 public class Checkout {
-    private String toolCode;
-    private int rentalDayCount;
-    private int discountPercent;
-    private String checkoutDate;
+    private final String toolCode;
+    private final int rentalDayCount;
+    private final int discountPercent;
+    private final String checkoutDate;
 
     public Checkout(String toolCode, int rentalDayCount, int discountPercent, String checkoutDate) {
         this.toolCode = toolCode;
