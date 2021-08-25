@@ -6,19 +6,26 @@ import models.tools.Tool;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
-import static java.time.temporal.TemporalAdjusters.firstInMonth;
+import static utils.DateUtils.*;
 
 public class ToolService {
 
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
 
+    /**
+     * Builds a RentalAgreement object based on the provided parameters.
+     *
+     * @param toolCode        - Unique identifier for a tool instance
+     * @param rentalDayCount  - The number of days for which the customer wants to rent the tool
+     * @param discountPercent - Discount percent that will be applied to the total (must be between 0-100)
+     * @param checkoutDate    - Date of checkout
+     * @return
+     * @throws Exception
+     */
     public static RentalAgreement checkoutTool(String toolCode, int rentalDayCount, int discountPercent, String checkoutDate) throws Exception {
         validateCheckoutData(rentalDayCount, discountPercent);
         Tool tool = ToolFactory.getTool(toolCode);
@@ -34,12 +41,21 @@ public class ToolService {
                 .setDiscountAmount(discountAmount)
                 .setPreDiscountCharge(preDiscountCharge)
                 .setToolBrand(tool.getBrand())
+                .setToolType(tool.getClass().getSimpleName())
                 .setDailyRentalCharge(tool.getDailyCharge())
                 .setDueDate(dueDate)
                 .setFinalAmount(finalAmount)
                 .build();
     }
 
+    /**
+     * Gets the due date based on the checkout date and rental days.
+     *
+     * @param checkoutDate - Checkout date from client in String format
+     * @param rentalDays   - Number of rental days
+     * @return
+     * @throws ParseException
+     */
     private static String getDueDate(String checkoutDate, int rentalDays) throws ParseException {
         Date date = dateFormatter.parse(checkoutDate);
         return dateFormatter.format(addDays(date, rentalDays));
@@ -48,9 +64,8 @@ public class ToolService {
     /**
      * Validates the rentalDayCount and discountPercent and throws an Exception if they are invalid.
      *
-     * @param rentalDayCount - verifies it's greater or equal to 1
-     * @param discountPercent - verifies it's between 0 - 100
-     *
+     * @param rentalDayCount  - Verifies it's greater or equal to 1
+     * @param discountPercent - Verifies it's between 0 - 100
      * @throws Exception
      */
     public static void validateCheckoutData(int rentalDayCount, int discountPercent) throws Exception {
@@ -66,8 +81,9 @@ public class ToolService {
      * Date -> LocalDate. We then loop through each date starting from the CheckoutDate -> DueDate and check if each day is a chargeable day.
      * This will depend on the Tool weekday/weekend/holiday charge.
      *
-     * @param checkoutDate
-     * @param dueDate
+     * @param tool         - Tool instance that will be used to determine which days are charged
+     * @param checkoutDate - Start date
+     * @param dueDate      - End date
      * @return
      * @throws ParseException
      */
@@ -97,37 +113,5 @@ public class ToolService {
             chargeCount++;
         }
         return chargeCount;
-    }
-
-    public static boolean isWeekday(LocalDate date) {
-        return !(date.getDayOfWeek() == DayOfWeek.SATURDAY && date.getDayOfWeek() == DayOfWeek.SUNDAY);
-    }
-
-    private static boolean isWeekend(LocalDate date) {
-        return date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
-    }
-
-    private static boolean isLaborDay(LocalDate date) {
-        return date.getMonth() == Month.SEPTEMBER && date.equals(date.with(firstInMonth(DayOfWeek.MONDAY)));
-    }
-
-    private static LocalDate getIndependenceHoliday(int year) {
-        int month = 7;
-        LocalDate independenceDay = LocalDate.of(year, month, 4);
-        switch (independenceDay.getDayOfWeek()) {
-            case SUNDAY:
-                return LocalDate.of(year, month, 5);
-            case SATURDAY:
-                return LocalDate.of(year, month, 3);
-            default:
-                return independenceDay;
-        }
-    }
-
-    private static Date addDays(Date date, int days) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, days);
-        return calendar.getTime();
     }
 }

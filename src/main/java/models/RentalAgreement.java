@@ -1,10 +1,14 @@
 package models;
 
-import utils.CurrencyHelper;
+import utils.CurrencyUtils;
 
+/**
+ * RentalAgreement model that uses the Builder design pattern to construct an immutable object.
+ */
 public class RentalAgreement {
     private final String toolCode;
     private final String toolBrand;
+    private final String toolType;
     private final int rentalDays;
     private final String checkoutDate;
     private final String dueDate;
@@ -18,6 +22,7 @@ public class RentalAgreement {
     private RentalAgreement(Builder builder) {
         this.toolCode = builder.toolCode;
         this.toolBrand = builder.toolBrand;
+        this.toolType = builder.toolType;
         this.rentalDays = builder.rentalDays;
         this.checkoutDate = builder.checkoutDate;
         this.dueDate = builder.dueDate;
@@ -35,6 +40,10 @@ public class RentalAgreement {
 
     public String getToolBrand() {
         return toolBrand;
+    }
+
+    public String getToolType() {
+        return toolType;
     }
 
     public int getRentalDays() {
@@ -73,8 +82,23 @@ public class RentalAgreement {
         return finalAmount;
     }
 
+    /**
+     * Prints the rental agree to the console.
+     */
     public void printRentalAgreement() {
-
+        System.out.println("----Rental Agreement----");
+        System.out.println("Tool code: " + toolCode);
+        System.out.println("Tool type: " + toolType);
+        System.out.println("Tool brand: " + toolBrand);
+        System.out.println("Rental days: " + rentalDays);
+        System.out.println("Check out date: " + checkoutDate);
+        System.out.println("Due date: " + dueDate);
+        System.out.println("Daily rental charge: " + dailyRentalCharge);
+        System.out.println("Charge days: " + chargeDays);
+        System.out.println("Pre-discount charge: " + preDiscountCharge);
+        System.out.println("Discount percent: " + discountPercent + "%");
+        System.out.println("Discount amount: " + discountAmount);
+        System.out.println("Final charge: " + finalAmount);
     }
 
     public static class Builder {
@@ -83,6 +107,7 @@ public class RentalAgreement {
         private int rentalDays;
         private int discountPercent;
         private String toolBrand;
+        private String toolType;
         private String dueDate;
         private float dailyRentalCharge;
         private int chargeDays;
@@ -113,6 +138,11 @@ public class RentalAgreement {
             return this;
         }
 
+        public Builder setToolType(String toolType) {
+            this.toolType = toolType;
+            return this;
+        }
+
         public Builder setDueDate(String dueDate) {
             this.dueDate = dueDate;
             return this;
@@ -129,17 +159,17 @@ public class RentalAgreement {
         }
 
         public Builder setPreDiscountCharge(float preDiscountCharge) {
-            this.preDiscountCharge = CurrencyHelper.formatFloat(preDiscountCharge);
+            this.preDiscountCharge = CurrencyUtils.formatFloat(preDiscountCharge);
             return this;
         }
 
         public Builder setDiscountAmount(float discountAmount) {
-            this.discountAmount = CurrencyHelper.formatFloat(discountAmount);
+            this.discountAmount = CurrencyUtils.formatFloat(discountAmount);
             return this;
         }
 
         public Builder setFinalAmount(float finalAmount) {
-            this.finalAmount = CurrencyHelper.formatFloat(finalAmount);
+            this.finalAmount = CurrencyUtils.formatFloat(finalAmount);
             return this;
         }
 

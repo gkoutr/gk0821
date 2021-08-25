@@ -41,6 +41,18 @@ public class ToolServiceTest {
 
     }
 
+    /**
+     * Test case #2
+     * Tool code: LADW
+     * Checkout date: 7/2/20
+     * Rental days: 3
+     * Discount: 10%
+     * <p>
+     * Expected output: Returns a RentalAgreement object
+     * <p>
+     * This test will run checkoutTool and verify that the RentalAgreement instance contains the correct values
+     *
+     */
     @Test
     public void testCaseTwo() throws Exception {
         //Arrange
@@ -66,6 +78,18 @@ public class ToolServiceTest {
         Assert.assertTrue("Final charge does not equal 3.58", rentalAgreement.getFinalAmount() == 3.58f);
     }
 
+    /**
+     * Test case #3
+     * Tool code: CHNS
+     * Checkout date: 7/2/15
+     * Rental days: 5
+     * Discount: 25%
+     * <p>
+     * Expected output: Returns a RentalAgreement object
+     * <p>
+     * This test will run checkoutTool and verify that the RentalAgreement instance contains the correct values
+     *
+     */
     @Test
     public void testCaseThree() throws Exception {
         //Arrange
@@ -91,6 +115,18 @@ public class ToolServiceTest {
         Assert.assertTrue("Final charge does not equal 3.35", rentalAgreement.getFinalAmount() == 3.35f);
     }
 
+    /**
+     * Test case #4
+     * Tool code: JAKD
+     * Checkout date: 9/3/15
+     * Rental days: 6
+     * Discount: 0%
+     * <p>
+     * Expected output: Returns a RentalAgreement object
+     * <p>
+     * This test will run checkoutTool and verify that the RentalAgreement instance contains the correct values
+     *
+     */
     @Test
     public void testCaseFour() throws Exception {
         //Arrange
@@ -117,6 +153,18 @@ public class ToolServiceTest {
 
     }
 
+    /**
+     * Test case #5
+     * Tool code: JAKR
+     * Checkout date: 7/2/15
+     * Rental days: 9
+     * Discount: 0
+     * <p>
+     * Expected output: Returns a RentalAgreement object
+     * <p>
+     * This test will run checkoutTool and verify that the RentalAgreement instance contains the correct values
+     *
+     */
     @Test
     public void testCaseFive() throws Exception {
         //Arrange
@@ -142,7 +190,18 @@ public class ToolServiceTest {
         Assert.assertTrue("Final charge does not equal 14.95", rentalAgreement.getFinalAmount() == 14.95f);
     }
 
-
+    /**
+     * Test case #6
+     * Tool code: JAKR
+     * Checkout date: 7/2/20
+     * Rental days: 4
+     * Discount: 50%
+     * <p>
+     * Expected output: Returns a RentalAgreement object
+     * <p>
+     * This test will run checkoutTool and verify that the RentalAgreement instance contains the correct values
+     *
+     */
     @Test
     public void testCaseSix() throws Exception {
         //Arrange

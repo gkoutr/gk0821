@@ -2,7 +2,7 @@ package utils;
 
 import java.util.Locale;
 
-public class CurrencyHelper {
+public class CurrencyUtils {
 
     /**
      * Rounds float values to 2 decimal places using String.format.

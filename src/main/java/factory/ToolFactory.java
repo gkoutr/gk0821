@@ -5,8 +5,19 @@ import models.tools.Jackhammer;
 import models.tools.Ladder;
 import models.tools.Tool;
 
+/**
+ * Factory class for building a Tool object based on the toolCode. This hides the underlying classes and only exposes
+ * the parent Tool class to the client.
+ */
 public class ToolFactory {
 
+    /**
+     * Creates a Tool object based on the provided tool code.
+     *
+     * @param toolCode
+     * @return
+     * @throws Exception
+     */
     public static Tool getTool(String toolCode) throws Exception {
         switch (toolCode) {
             case "LADW":

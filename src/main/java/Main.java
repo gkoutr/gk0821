@@ -1,3 +1,4 @@
+import models.RentalAgreement;
 import service.ToolService;
 
 import java.util.Scanner;
@@ -16,7 +17,8 @@ public class Main {
             System.out.println("Enter Check Out Date in the following format: mm/dd/yyyy");
             String checkoutDate = scanner.next();
             System.out.println("-------------------------------------");
-            ToolService.checkoutTool(toolCode, rentalDayCount, discountPercent, checkoutDate);
+            RentalAgreement rentalAgreement = ToolService.checkoutTool(toolCode, rentalDayCount, discountPercent, checkoutDate);
+            rentalAgreement.printRentalAgreement();
         }
     }
 }
