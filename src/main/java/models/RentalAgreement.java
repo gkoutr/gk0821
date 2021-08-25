@@ -1,5 +1,7 @@
 package models;
 
+import utils.CurrencyHelper;
+
 public class RentalAgreement {
     private final String toolCode;
     private final String toolBrand;
@@ -13,8 +15,7 @@ public class RentalAgreement {
     private final float discountAmount;
     private final float finalAmount;
 
-
-    private RentalAgreement(Builder builder){
+    private RentalAgreement(Builder builder) {
         this.toolCode = builder.toolCode;
         this.toolBrand = builder.toolBrand;
         this.rentalDays = builder.rentalDays;
@@ -28,15 +29,59 @@ public class RentalAgreement {
         this.finalAmount = builder.finalAmount;
     }
 
-    public void printRentalAgreement(){
+    public String getToolCode() {
+        return toolCode;
+    }
+
+    public String getToolBrand() {
+        return toolBrand;
+    }
+
+    public int getRentalDays() {
+        return rentalDays;
+    }
+
+    public String getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public float getDailyRentalCharge() {
+        return dailyRentalCharge;
+    }
+
+    public int getChargeDays() {
+        return chargeDays;
+    }
+
+    public float getPreDiscountCharge() {
+        return preDiscountCharge;
+    }
+
+    public int getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public float getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public float getFinalAmount() {
+        return finalAmount;
+    }
+
+    public void printRentalAgreement() {
 
     }
 
     public static class Builder {
         private final String toolCode;
-        private final int rentalDays;
-        private final int discountPercent;
         private final String checkoutDate;
+        private int rentalDays;
+        private int discountPercent;
         private String toolBrand;
         private String dueDate;
         private float dailyRentalCharge;
@@ -45,11 +90,22 @@ public class RentalAgreement {
         private float discountAmount;
         private float finalAmount;
 
-        public Builder(String toolCode, int rentalDays, int discountPercent, String checkoutDate){
+        public Builder(String toolCode, String checkoutDate) {
             this.toolCode = toolCode;
-            this.rentalDays = rentalDays;
-            this.discountPercent = discountPercent;
             this.checkoutDate = checkoutDate;
+        }
+
+        public Builder setRentalDays(int rentalDays) throws Exception {
+            this.rentalDays = rentalDays;
+            return this;
+        }
+
+        public Builder setDiscountPercent(int discountPercent) throws Exception {
+            if (discountPercent < 0 || discountPercent > 100) {
+                throw new Exception("Discount percent must be within 0-100");
+            }
+            this.discountPercent = discountPercent;
+            return this;
         }
 
         public Builder setToolBrand(String toolBrand) {
@@ -57,12 +113,12 @@ public class RentalAgreement {
             return this;
         }
 
-        public Builder setDueDate(String dueDate){
+        public Builder setDueDate(String dueDate) {
             this.dueDate = dueDate;
             return this;
         }
 
-        public Builder setDailyRentalCharge(float dailyRentalCharge){
+        public Builder setDailyRentalCharge(float dailyRentalCharge) {
             this.dailyRentalCharge = dailyRentalCharge;
             return this;
         }
@@ -73,21 +129,21 @@ public class RentalAgreement {
         }
 
         public Builder setPreDiscountCharge(float preDiscountCharge) {
-            this.preDiscountCharge = preDiscountCharge;
+            this.preDiscountCharge = CurrencyHelper.formatFloat(preDiscountCharge);
             return this;
         }
 
         public Builder setDiscountAmount(float discountAmount) {
-            this.discountAmount = discountAmount;
+            this.discountAmount = CurrencyHelper.formatFloat(discountAmount);
             return this;
         }
 
         public Builder setFinalAmount(float finalAmount) {
-            this.finalAmount = finalAmount;
+            this.finalAmount = CurrencyHelper.formatFloat(finalAmount);
             return this;
         }
 
-        public RentalAgreement build(){
+        public RentalAgreement build() {
             return new RentalAgreement(this);
         }
     }
