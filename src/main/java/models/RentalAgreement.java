@@ -93,12 +93,12 @@ public class RentalAgreement {
         System.out.println("Rental days: " + rentalDays);
         System.out.println("Check out date: " + checkoutDate);
         System.out.println("Due date: " + dueDate);
-        System.out.println("Daily rental charge: " + dailyRentalCharge);
+        System.out.println("Daily rental charge: $" + dailyRentalCharge);
         System.out.println("Charge days: " + chargeDays);
-        System.out.println("Pre-discount charge: " + preDiscountCharge);
+        System.out.println("Pre-discount charge: $" + preDiscountCharge);
         System.out.println("Discount percent: " + discountPercent + "%");
-        System.out.println("Discount amount: " + discountAmount);
-        System.out.println("Final charge: " + finalAmount);
+        System.out.println("Discount amount: $" + discountAmount);
+        System.out.println("Final charge: $" + finalAmount);
     }
 
     public static class Builder {
